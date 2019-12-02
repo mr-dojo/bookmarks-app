@@ -1,38 +1,16 @@
-  import React, { Component } from 'react';
-import {Route} from 'react-router-dom'
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
+import BookmarkContext from './bookmarksContext';
 import Nav from './Nav/Nav';
 import config from './config';
 import './App.css';
 
-const bookmarks = [
-  // {
-  //   id: 0,
-  //   title: 'Google',
-  //   url: 'http://www.google.com',
-  //   rating: '3',
-  //   desc: 'Internet-related services and products.'
-  // },
-  // {
-  //   id: 1,
-  //   title: 'Thinkful',
-  //   url: 'http://www.thinkful.com',
-  //   rating: '5',
-  //   desc: '1-on-1 learning to accelerate your way to a new high-growth tech career!'
-  // },
-  // {
-  //   id: 2,
-  //   title: 'Github',
-  //   url: 'http://www.github.com',
-  //   rating: '4',
-  //   desc: 'brings together the world\'s largest community of developers.'
-  // }
-];
 
 class App extends Component {
   state = {
-    bookmarks,
+    bookmarks: [],
     error: null,
   };
 
@@ -47,6 +25,15 @@ class App extends Component {
     this.setState({
       bookmarks: [ ...this.state.bookmarks, bookmark ],
     })
+  }
+
+  deleteBookmark = bookmarkId => {
+    const newBookmarks = this.state.bookmarks.filter(bm => 
+      bm.id !== bookmarkId)
+      this.setState({
+        bookmarks: newBookmarks,
+      })
+      console.log(this.state.bookmarks)
   }
 
   componentDidMount() {
@@ -68,30 +55,29 @@ class App extends Component {
   }
 
   render() {
-    const { bookmarks } = this.state
+    const contextValue = {
+      bookmarks: this.state.bookmarks,
+      addBookmark: this.addBookmark,
+      deleteBookmark: this.deleteBookmark,
+    }
+
     return (
       <main className='App'>
         <h1>Bookmarks!</h1>
-        <Nav />
-        <div className='content' aria-live='polite'>
-        <Route
-          path='/add-bookmark'
-          render={({history}) => {
-            return <AddBookmark 
-              onAddBookmark={this.addBookmark}
-              onClickCancel={() => history.push('/')}/>
-          }}   
-        />
-        <Route
-          exact
-          path='/'
-          render={() =>
-            <BookmarkList
-              bookmarks={bookmarks}
+        <BookmarkContext.Provider value={contextValue}>
+          <Nav />
+          <div className='content' aria-live='polite'>
+            <Route
+              path='/add-bookmark'
+              component={AddBookmark}
             />
-          }
-        />
-        </div>
+            <Route
+              exact
+              path='/'
+              component={BookmarkList}
+            />
+          </div>
+        </BookmarkContext.Provider>
       </main>
     );
   }

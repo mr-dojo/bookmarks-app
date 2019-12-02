@@ -33,6 +33,7 @@ class App extends Component {
       this.setState({
         bookmarks: newBookmarks,
       })
+      console.log(this.state.bookmarks)
   }
 
   componentDidMount() {
@@ -59,7 +60,7 @@ class App extends Component {
       addBookmark: this.addBookmark,
       deleteBookmark: this.deleteBookmark,
     }
-    
+
     return (
       <main className='App'>
         <h1>Bookmarks!</h1>
@@ -68,12 +69,12 @@ class App extends Component {
           <div className='content' aria-live='polite'>
             <Route
               path='/add-bookmark'
-              componenet={AddBookmark}
+              component={AddBookmark}
             />
             <Route
               exact
               path='/'
-              componenet={BookmarkList}
+              component={BookmarkList}
             />
           </div>
         </BookmarkContext.Provider>

@@ -49,7 +49,7 @@ class AddBookmark extends Component {
         url.value = ''
         description.value = ''
         rating.value = ''
-        this.context.AddBookmark(data)
+        this.context.addBookmark(data)
         this.props.history.push('/')
       })
       .catch(error => {

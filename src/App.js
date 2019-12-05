@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
-import BookmarkContext from './bookmarksContext';
+import BookmarksContext from './bookmarksContext';
 import Nav from './Nav/Nav';
 import config from './config';
 import './App.css';
@@ -64,7 +64,7 @@ class App extends Component {
     return (
       <main className='App'>
         <h1>Bookmarks!</h1>
-        <BookmarkContext.Provider value={contextValue}>
+        <BookmarksContext.Provider value={contextValue}>
           <Nav />
           <div className='content' aria-live='polite'>
             <Route
@@ -77,7 +77,7 @@ class App extends Component {
               component={BookmarkList}
             />
           </div>
-        </BookmarkContext.Provider>
+        </BookmarksContext.Provider>
       </main>
     );
   }

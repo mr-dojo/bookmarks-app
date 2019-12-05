@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom'
-=======
 import { Link } from 'react-router-dom';
->>>>>>> fa8da82
 
 export default function Nav(props) {
   return (

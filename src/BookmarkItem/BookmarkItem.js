@@ -86,5 +86,5 @@ BookmarkItem.propTypes = {
 
 BookmarkItem.defaultProps = {
   rating: 1,
-  description: ""
+  description: "",
 };

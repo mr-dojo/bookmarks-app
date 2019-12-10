@@ -68,7 +68,18 @@ export default function BookmarkItem(props) {
 
 BookmarkItem.propTypes = {
   title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: (props, propName, componentName) => {
+    const prop = props[propName];
+    if (!prop) {
+      return new Error(`"${componentName}" component requires a "${propName}" prop`)
+    }
+    if (typeof prop != 'string') {
+      return new Error(`Invalid prop, "${propName}" is expecting a string for the "${componentName}" component`)
+    }
+    if (prop.length <= 5 || !prop.match(new RegExp(/^https?:\/\//))) {
+      return new Error(`Invalid prop, "${propName}" must be min length 5 and begin http(s)://. Validation Failed.`);
+    }
+  },
   rating: PropTypes.number,
   description: PropTypes.string
 };

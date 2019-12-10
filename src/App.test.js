@@ -9,11 +9,7 @@ it('renders without crashing', () => {
     <BrowserRouter>
       <App />
     </BrowserRouter>,
-<<<<<<< HEAD
-    div);
-=======
     div
   );
->>>>>>> fa8da82
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
 import BookmarksContext from './bookmarksContext';
-import UpdateBookmark from './UpdateBookmark/UpdateBookmark'
+import UpdateBookmark from './UpdateBookmark/UpdateBookmark';
 import Nav from './Nav/Nav';
 import config from './config';
 import './App.css';
@@ -37,7 +37,7 @@ class App extends Component {
       console.log(this.state.bookmarks)
   }
 
-  updateBookmark = () => {};
+  updateBookmark = () => {}
 
   componentDidMount() {
     fetch(config.API_ENDPOINT, {

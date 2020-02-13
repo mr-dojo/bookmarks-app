@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
 import BookmarksContext from './bookmarksContext';
+import UpdateBookmark from './UpdateBookmark/UpdateBookmark'
 import Nav from './Nav/Nav';
 import config from './config';
 import './App.css';
@@ -36,6 +37,8 @@ class App extends Component {
       console.log(this.state.bookmarks)
   }
 
+  updateBookmark = () => {};
+
   componentDidMount() {
     fetch(config.API_ENDPOINT, {
       method: 'GET',
@@ -59,6 +62,7 @@ class App extends Component {
       bookmarks: this.state.bookmarks,
       addBookmark: this.addBookmark,
       deleteBookmark: this.deleteBookmark,
+      updateBookmark: this.updateBookmark,
     }
 
     return (
@@ -68,13 +72,18 @@ class App extends Component {
           <Nav />
           <div className='content' aria-live='polite'>
             <Route
+              exact
+              path='/'
+              component={BookmarkList}
+            />
+            <Route
               path='/add-bookmark'
               component={AddBookmark}
             />
             <Route
               exact
-              path='/'
-              component={BookmarkList}
+              path='/edit/:bookmarkId'
+              component={UpdateBookmark}
             />
           </div>
         </BookmarksContext.Provider>

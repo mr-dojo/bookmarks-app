@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "name": "bookmarks-app",
+  "alias": "mr-dojo-bookmarks-app",
+  "routes": [
+      { "handle": "filesystem" },
+      { "src": "/.*", "dest": "/index.html" }
+  ]
+}

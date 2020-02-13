@@ -1,6 +1,7 @@
 import React, { Component } from  'react';
 import BookmarksContext from '../bookmarksContext';
 import config from '../config'
+import PropTypes from 'prop-types';
 import './UpdateBookmark.css';
 
 const Required = () => (
@@ -8,6 +9,15 @@ const Required = () => (
 )
 
 class UpdateBookmark extends Component {
+
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.object,
+    }),
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+  };
 
   static contextType = BookmarksContext;
 

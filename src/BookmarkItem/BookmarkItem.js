@@ -46,7 +46,7 @@ export default function BookmarkItem(props) {
             {props.description}
           </p>
           <div className='BookmarkItem__buttons'>
-            <Link to={`/edit/${props.id}`}>Edit Bookmark</Link>
+            <Link to={`/edit/${props.id}`}>Edit</Link>
             {' '}
             <button
               className='BookmarkItem__description'
@@ -73,12 +73,19 @@ BookmarkItem.defaultProps = {
 }
 
 BookmarkItem.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
   title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: (props, propName, componentName) => {
+    const prop = props[propName];
+    if (!prop) {
+      return new Error(`"${componentName}" component requires a "${propName}" prop`)
+    }
+    if (typeof prop != 'string') {
+      return new Error(`Invalid prop, "${propName}" is expecting a string for the "${componentName}" component`)
+    }
+    if (prop.length <= 5 || !prop.match(new RegExp(/^https?:\/\//))) {
+      return new Error(`Invalid prop, "${propName}" must be min length 5 and begin http(s)://. Validation Failed.`);
+    }
+  },
   desciption: PropTypes.string,
   rating: PropTypes.number.isRequired,
   onClickDelete: PropTypes.func,
@@ -102,7 +109,7 @@ BookmarkItem.propTypes = {
 //   description: PropTypes.string
 // };
 
-// BookmarkItem.defaultProps = {
-//   rating: 1,
-//   description: "",
-// };
+BookmarkItem.defaultProps = {
+  rating: 1,
+  description: "",
+};

@@ -130,6 +130,7 @@ class UpdateBookmark extends Component {
               name='title'
               id='title'
               placeholder={title}
+              value={title}
               required
               onChange={(event) => this.setState({ title: event.target.value })}
             />
@@ -145,6 +146,7 @@ class UpdateBookmark extends Component {
               name='url'
               id='url'
               placeholder={url}
+              value={url}
               required
               onChange={(event) => this.setState({ url: event.target.value })}
             />
@@ -157,6 +159,7 @@ class UpdateBookmark extends Component {
               name='description'
               id='description'
               placeholder={description}
+              value={description}
               onChange={(event) => this.setState({ description: event.target.value })}
             />
           </div>
@@ -171,6 +174,7 @@ class UpdateBookmark extends Component {
               name='rating'
               id='rating'
               placeholder={rating}
+              value={rating}
               min='1'
               max='5'
               required

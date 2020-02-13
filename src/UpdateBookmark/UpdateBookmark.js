@@ -35,7 +35,6 @@ class UpdateBookmark extends Component {
     fetch(config.API_ENDPOINT + `/${bookmarkId}`, {
       method: 'GET',
       headers: {
-        'content-type': 'application/json',
         'authorization': `bearer ${config.API_KEY}`
       }
     })
@@ -62,9 +61,10 @@ class UpdateBookmark extends Component {
     const { title, url, description, rating } = this.state
     const newBookmark = { title, url, description, rating }
     this.setState({ error: null })
-    fetch(config.API_ENDPOINT + `${bookmarkId}`, {
+    const newJsonBookmark = JSON.stringify(newBookmark)
+    fetch(config.API_ENDPOINT + `/${bookmarkId}`, {
       method: 'PATCH',
-      body: JSON.stringify(newBookmark),
+      body: newJsonBookmark,
       headers: {
         'content-type': 'application/json',
         'authorization': `bearer ${config.API_KEY}`
@@ -79,6 +79,7 @@ class UpdateBookmark extends Component {
         return res.json()
       })
       .then(res => {
+        console.log(res)
         this.resetFields(newBookmark)
         this.context.updateBookmark(newBookmark)
         this.props.history.push('/')
@@ -94,7 +95,7 @@ class UpdateBookmark extends Component {
       title: newFields.title || '',
       url: newFields.url || '',
       description: newFields.description || '',
-      rating: newFields.rating || 1,
+      rating: newFields.rating || '',
     })
   }
 

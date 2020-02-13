@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import './BookmarkItem.css';
 
 function deleteBookmarkRequest(bookmarkId, callback) {
-  console.log(config.API_ENDPOINT + `/${bookmarkId}`)
   fetch(config.API_ENDPOINT + `/${bookmarkId}`, { 
     method: 'DELETE',
     headers: {
@@ -47,6 +46,8 @@ export default function BookmarkItem(props) {
             {props.description}
           </p>
           <div className='BookmarkItem__buttons'>
+            <Link to={`/edit/${props.id}`}>Edit Bookmark</Link>
+            {' '}
             <button
               className='BookmarkItem__description'
               onClick={() => {
@@ -59,7 +60,6 @@ export default function BookmarkItem(props) {
             >
               Delete
             </button>
-            <Link to={`/edit/${props.id}`}>Edit Bookmark</Link>
           </div>
         </li>
       )
@@ -68,25 +68,41 @@ export default function BookmarkItem(props) {
   )
 }
 
-BookmarkItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  url: (props, propName, componentName) => {
-    const prop = props[propName];
-    if (!prop) {
-      return new Error(`"${componentName}" component requires a "${propName}" prop`)
-    }
-    if (typeof prop != 'string') {
-      return new Error(`Invalid prop, "${propName}" is expecting a string for the "${componentName}" component`)
-    }
-    if (prop.length <= 5 || !prop.match(new RegExp(/^https?:\/\//))) {
-      return new Error(`Invalid prop, "${propName}" must be min length 5 and begin http(s)://. Validation Failed.`);
-    }
-  },
-  rating: PropTypes.number,
-  description: PropTypes.string
-};
-
 BookmarkItem.defaultProps = {
-  rating: 1,
-  description: "",
-};
+  onClickDelete: () => {},
+}
+
+BookmarkItem.propTypes = {
+  id: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  desciption: PropTypes.string,
+  rating: PropTypes.number.isRequired,
+  onClickDelete: PropTypes.func,
+}
+
+// BookmarkItem.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   url: (props, propName, componentName) => {
+//     const prop = props[propName];
+//     if (!prop) {
+//       return new Error(`"${componentName}" component requires a "${propName}" prop`)
+//     }
+//     if (typeof prop != 'string') {
+//       return new Error(`Invalid prop, "${propName}" is expecting a string for the "${componentName}" component`)
+//     }
+//     if (prop.length <= 5 || !prop.match(new RegExp(/^https?:\/\//))) {
+//       return new Error(`Invalid prop, "${propName}" must be min length 5 and begin http(s)://. Validation Failed.`);
+//     }
+//   },
+//   rating: PropTypes.number,
+//   description: PropTypes.string
+// };
+
+// BookmarkItem.defaultProps = {
+//   rating: 1,
+//   description: "",
+// };
